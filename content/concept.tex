@@ -1,0 +1,82 @@
+\chapter[Concept]{Concept}
+
+\label{ch:concept}
+
+This chapter is devoted to the concept and specifications of the resulting project, which is a web application. The application would enable to create, manage learning materials and solve them in an interactive way. The materials author would be further called \textit{teacher} and the solver would be called \textit{student}.
+
+    \section{Requirements}
+    
+    This section is devoted to the requirements for the resulting web application and their purpose.
+    
+        \subsection{Programming language}
+        The web application should support use of Java programming language of versions 8 to 10. Testing framework JUnit 4 would be used for testing. The application should support compilation of Java programs and running the tests.
+        
+    
+        \subsection{Courses}
+        The materials would have a structure of courses. Each course would contain lessons, groups of exercises. Application would provide tools for creating the courses, lessons and exercises, edit them and delete. Courses and lessons would have title and description, and it would be able to reorder them. There would be five types of exercises, they are specified in detail in section \hyperref[subsec:exercise-types] {\textit{Exercises}}.
+        
+        \subsection{Version control}
+        Another requirement for the resulting application is version control of the student's solutions. The web application should store and show source code, tests and files, which are submitted and run by student. When solving exercise, student would be able to view the previous versions and insert their files to the editor. He would be able to access the files from any exercise within a current course. As soon as there may be a very large amount of solutions, they all would not be loaded at once, but user would be able to load them page by page. Solutions would be ordered by date and time of submitting and user would be able to filter them by completeness. 
+        
+        This feature is useful for refactoring or working with legacy code, e.g. when student needs to extend tests from previous solution with new ones.
+        
+        \subsection{Security}
+        Another important requirement concerns about security issues and elimination of the potential risks.
+        
+        Running the programs, written by teachers and students, on the server brings risks for the system. Running the program would be isolated, and its would have limited access to the rest of the system. It may be aimed with use of a form of a software vitalisation, a \textit{virtual sandbox}.
+        
+        Another web application security risk is \textit{Cross-Site Scripting} (XSS), which allows malicious code to be added to a web page via user input, e.g. form submissions, and used in it \cite[A7-Cross-Site Scripting (XSS)]{owasp_xss}. To prevent this, the input would be sanitised: rather than accept or reject input, another option is to change the user input into an acceptable format \cite[Sanitize]{owasp_sanitize}. Such an attack may be used in text editor for an exercise description.
+        
+        \subsection{Development environment}
+        The web application would have convenient development environment, and it would be close to conventional IDEs. It would consist of code editors with multiple tabs, these tabs should be easy to add and remove. The environment would enable code execution and providing a feedback. As soon as the programming language is Java, the feedback should include possible compilation errors and tests results.
+
+\section{Exercises}
+\label{sec:exercises}
+Practicing agile programming methods would be realised by solving exercises. It is not enough to have an environment, which supports only work with source code to practice various agile programming methods and estimate solutions automatically. All of these methods include unit testing, so works with tests would be included. Support of the files would expand the possibilities of testing.
+
+
+    \subsection{Exercise types}
+    \label{subsec:exercise-types}
+    There would be five types of exercises to provide different ways to practice agile programming methods separately or in combinations. Their concepts, purpose and usage would be described in the following sections.
+        
+        
+        \subsubsection{Theory}
+        Exercise type \textit{Theory} is the basic one, it is aimed to provide information. May be used mainly to introduce or conclude a current course or lesson, or to make an overview on legacy code.
+        
+        It would provide only a text area and would be marked as solved at the moment, when is viewed by the student. On exercise creation and update, the teacher would be able to use text editor with ability to format, e.g. to provide example source code. The formatted text would be provided to the student.
+    
+    
+        \subsubsection{Interactive Exercise}
+        \label{subsubsec:whitebox}
+        \textit{Interactive Exercise} type would provide tools for programming.
+        On exercise creation, the teacher would be required to fill title and description of exercise. Then he would use editors to bring in source code, initially provided to the student. It would show basic code structure to the student, but also may be useful for further work with legacy code. Next editors would be designed for tests. Teacher would use them to fill hidden tests to control the solving progress. Also he would provide tests, which would be initially provided to the student, e.g. to recall the JUnit 4 syntax. Teacher would be able to simply duplicate the hidden version to fill the shown one, but also to create two different.
+        
+        On students side, it would contain an exercise description and two editors, making a development environment. The first one is for source code, and the second one is for tests. The student would use the environment to solve an exercise, and he would be able to run his code withing the web application and get feedback. The provided feedback would be consisted of two parts. The first one would tell about compilation and tests results for the students code from the development environment. The second one would be based on the teachers code, which would not be available for the student.
+        
+        
+        \subsubsection{Interactive Exercise with Files}
+        This exercise type provides the same features as \hyperref[subsubsec:whitebox]{previous one}, and expands its tools working with files. One more text editor would contain files, and there would be teachers and students versions as well. These files would be used for the purpose of testing.
+        
+        
+        \subsubsection{Black Box}
+        \label{subsubsec:blackbox}
+        The next exercise type is named \textit{Black Box}, what means a system or a function, for which only its input and output is known. This term describes the main feature of this type, since the student would not see source code, but would send input and get some form of output from the program. This tool is useful for practising unit testing and test-driven development. On working on this exercise, the student would try to find mistakes in the hidden program with the use of tests.
+        
+        To create an exercise of this type, teacher would fill its title and description. The latter should contain code structure or functions names, or any kind of information to give the student knowledge about the hidden code. So he would be able to call necessary functions from his tests. Except filling an exercise title and description on exercise creation, the teacher would enter controlling source code, which would be hidden from the student, would be compilable and contain several logical mistakes. The application would provide information for the teacher on how to design the source code, so it would be used correctly. The tests, which would be shown to the student, would be filled as well. The purpose of these hidden tests is the same as for such a tests in exercise type \hyperref[subsubsec:whitebox]{\textit{Interactive Exercise}}.
+        
+        The student would write tests, which would not be passed be the program. The student would run his tests for the hidden program, and would get feedback, telling the number of found mistakes and their total number.
+        
+        The application would provide this functionality and solving \textit{Black Box} exercise is a correct way. Incorrect solutions would be ignored and not counted to the solution. Examples of such a solutions are the following: the student may write test, which would not be passed, but it would not find the mistake. It may happen, if this test would not pass a correct version of the hidden program as well. This solution should be ignored. Another example is writing several tests, so they would find the same mistake several times. Only one test would be counted for solution, the rest would be ignored.
+        
+        
+        \subsubsection{Black Box with Files}
+        This exercise type extends \hyperref[subsubsec:blackbox]{previous one} with ability to work with files, which would be used for testing.
+
+
+\section{Architecture}
+
+\section{User interface}
+
+\section{Data structure}
+
+\section{User roles}
