@@ -2,7 +2,7 @@
 
 \label{ch:concept}
 
-This chapter is devoted to the concept and specifications of the resulting project, which is a web application. The application would enable to create, manage learning materials and solve them in an interactive way. The materials author would be further called \textit{teacher} and the solver would be called \textit{student}.
+This chapter is devoted to the specifications and concept of the resulting project, which is a web application. The application would enable to create, manage learning materials and solve them in an interactive way. The materials author would be further called \textit{teacher} and the solver would be called \textit{student}.
 
     \section{Requirements}
     
@@ -15,8 +15,13 @@ This chapter is devoted to the concept and specifications of the resulting proje
         \subsection{Courses}
         The materials would have a structure of courses. Each course would contain lessons, groups of exercises. Application would provide tools for creating the courses, lessons and exercises, edit them and delete. Courses and lessons would have title and description, and it would be able to reorder them. There would be five types of exercises, they are specified in detail in section \hyperref[subsec:exercise-types] {\textit{Exercises}}.
         
+        \subsection{Development environment}
+        The web application would have convenient development environment, and it would be close to conventional IDEs. It would consist of code editors with multiple tabs, these tabs should be easy to add and remove. The environment would enable code execution and providing a feedback. As soon as the programming language is Java, the feedback should include possible compilation errors and tests results.
+        
         \subsection{Version control}
-        Another requirement for the resulting application is version control of the student's solutions. The web application should store and show source code, tests and files, which are submitted and run by student. When solving exercise, student would be able to view the previous versions and insert their files to the editor. He would be able to access the files from any exercise within a current course. As soon as there may be a very large amount of solutions, they all would not be loaded at once, but user would be able to load them page by page. Solutions would be ordered by date and time of submitting and user would be able to filter them by completeness. 
+        Another requirement for the resulting application is version control of the student's solutions. The web application should store and show source code, tests and files, which are submitted and run by student.
+        
+        When solving exercise, student would be able to view previous versions and insert their files to the editor. He would be able to access the files from any exercise within a current course. As soon as there may be a very large amount of solutions, they all would not be loaded at once, but user would be able to load them page by page. Solutions would be ordered by date and time of submitting and user would be able to filter them by completeness. 
         
         This feature is useful for refactoring or working with legacy code, e.g. when student needs to extend tests from previous solution with new ones.
         
@@ -27,12 +32,12 @@ This chapter is devoted to the concept and specifications of the resulting proje
         
         Another web application security risk is \textit{Cross-Site Scripting} (XSS), which allows malicious code to be added to a web page via user input, e.g. form submissions, and used in it \cite[A7-Cross-Site Scripting (XSS)]{owasp_xss}. To prevent this, the input would be sanitised: rather than accept or reject input, another option is to change the user input into an acceptable format \cite[Sanitize]{owasp_sanitize}. Such an attack may be used in text editor for an exercise description.
         
-        \subsection{Development environment}
-        The web application would have convenient development environment, and it would be close to conventional IDEs. It would consist of code editors with multiple tabs, these tabs should be easy to add and remove. The environment would enable code execution and providing a feedback. As soon as the programming language is Java, the feedback should include possible compilation errors and tests results.
+        \subsection{Error handling}
+        Web application should be robust, what can be achieved with efficient approach for errors handling. Such an approach should provide informative error messages and good user experience.
 
 \section{Exercises}
 \label{sec:exercises}
-Practicing agile programming methods would be realised by solving exercises. It is not enough to have an environment, which supports only work with source code to practice various agile programming methods and estimate solutions automatically. All of these methods include unit testing, so works with tests would be included. Support of the files would expand the possibilities of testing.
+Practising agile programming methods would be realised by solving exercises. To practice various agile programming methods, it is not enough to have an environment, which supports only work with source code and estimates solutions automatically. All of these methods include unit testing, so works with tests would be included. Support of the files would expand the possibilities of testing.
 
 
     \subsection{Exercise types}
