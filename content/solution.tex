@@ -1,12 +1,11 @@
-\chapter[Implementation]{Implementation}
-\label{ch:implementation}
+\chapter[Solution]{Solution}
+\label{ch:solution}
 This chapter is devoted to the implementation of the web application, which is the result of the bachelor thesis. It was realised according to the concept introduced in the previous chapter \ref{ch:concept} \nameref{ch:concept} to meet the stated requirements.
 
 This application uses full-stack web framework as soon as it supports front-end interface, back-end services and databases development. The application uses client-server model, where front-end corresponds to the client side, and front-end is considered as server side. The following sections describe implementation of every technologies stack component.
 
 \section{Front-end}
-
-...
+This section is devoted to the implementation of application, which runs on client side and provides interaction with him.
 
 \subsection{Angular framework}
 Front-end uses Angular, a platform and framework for building dynamic applications on the client side. Its primary programming language is TypeScript. Like any Angular application, the result application depends on features and functionality provided by libraries that are available as npm packages, and npm package manager was used to download and install them \cite[Node.js]{angular_getting_started}.
@@ -206,17 +205,41 @@ This module is imported by the App Module, and is used for redirection to it if 
 
 
 \section{Back-end}
+This section describes implementation of application, which runs on server and is responsible for handling business logic and data storage.
 
-\subsection{Virtual server}
+The server side Java application uses Spring Framework with Maven.
 
-\subsection{...}
+... controllers... Most of them perform basic CRUD operations. Solution estimation is more complex and will be described in details. ..
+
+Storage package is responsible for managing files in a directory for uploading temporary solution files.
+
+
+
+
+
+\subsection{Testing module}
+Testing module is realised as Java program, which runs in Docker container. It uses Spring framework and Maven.
+
+Server application stores Dockerfile and jar of the program. On beginning of the estimation process, these files are moved to a temporary directory for solution. 
+
+We decided to run the program in the container rather than execute commands from the server application or define them in Dockerfile. It brings such a benefit as modularity, because it becomes easier to add more supported for estimation programming languages. 
+for writing the  the server application may use this or another such a module, depending on the program. Also it brings an opportunity to define the output of compilation, testing, error messages.
+
+The estimator program contains two classes for estimating solution. The first class is responsible for exercise type \textit{Interactive exercise} and \textit{Interactive exercise with Files}, and the second handles \textit{Black Box} with \textit{Black Box with Files}. The both classes extend abstract class Estimator and implement estimation function, which starts the process.
+
+The estimation result is created with converting the estimation object into JSON string with use of Gson plugin from Google. This output is written to a text file. Docker Client plugin enables getting an archive of a filesystem resource in a container, so the file with estimation can be read with the server application.
+
+Another way to deliver the result to the server is printing it to the console, and Docker Client may read it. This simple solution has one problem. When solution program contains prints to the console, they also would be received by the server, and it becomes necessary to separate it to parse the estimation string. As a result, writing the result to the file is more efficient.
+
 
 \section{Database}
+The resulting web application uses PostgreSQL relational database management system. Hibernate framework implements the JPA and provides mapping of the application domain objects to the relational database tables. Spring Data JPA is a framework that handles most of the complexity of JDBC-based database access and object-relational mappings. It adds a layer on top of JPA and provides a no-code implementation of the repository pattern and the creation of database queries from method names. As a result, the main focus was on a business logic.
 
-\subsection{...}
+The CRUD functionality was provided with creating interfaces for every entity, which extend CrudRepository interface.
 
-\section{Testing module}
+The tables are mapped to entity model classes, which are Plain Old Java Objects (POJO). 
 
-\subsection{Virtual machine / Container}
+...
 
-\subsection{...}
++ relations database diagram
+
