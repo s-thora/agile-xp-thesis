@@ -26,6 +26,7 @@ This chapter is devoted to the specifications and concept of the resulting proje
         This feature is useful for refactoring or working with legacy code, e.g. when student needs to extend tests from previous solution with new ones.
         
         \subsection{Security}
+        \label{subsec:security}
         Another important requirement concerns about security issues and elimination of the potential risks.
         
         Running the programs, written by teachers and students, on the server brings risks for the system. Running the program would be isolated, and its would have limited access to the rest of the system. It may be aimed with use of a form of a software vitalisation, a \textit{virtual sandbox}.
@@ -120,8 +121,111 @@ This chapter is devoted to user interface concept.
 
 
 \section{Data structure}
-
 ...
+
+    \subsection{Data Model}
+    This section describes data model of the application.
+    
+    \begin{center}
+    \begin{figure}[h]
+    \begin{tikzpicture}
+    
+    \umlclass{courses}{
+    	name\\
+    	description\\
+    	created\\
+    }{}
+    
+    \umlclass[below=1 of courses]{lessons}{
+    	name\\
+    	description\\
+    	created\\
+    	index\\
+    }{}
+    \umlassoc[mult1=*,mult2=1]{lessons}{courses}
+    
+    \umlclass[right=2 of lessons]{solutions}{
+        created\\
+    }{}
+    
+    \umlclass[below=2 of solutions]{exercises}{
+    	name\\
+    	description\\
+    	created\\
+    	index\\
+    	solved\\
+    }{}
+    \umlassoc[mult1=*,mult2=1]{exercises}{lessons}
+    \umlassoc[mult1=*,mult2=1]{solutions}{exercises}
+    
+    \umlclass[below=2 of exercises]{exercise content}{
+        filename\\
+        content\\
+    }{}
+    \umlassoc[mult1=*,mult2=1]{exercise content}{exercises}
+    
+    \umlclass[left=2 of exercises]{exercise types}{
+        name\\
+        value\\
+    }{}
+    \umlassoc[mult1=*,mult2=1]{exercises}{exercise types}
+    
+    \umlclass[right=2 of exercises]{bugs number}{
+        number\\
+    }{}
+    \umlassoc[mult1=*,mult2=1]{bugs number}{exercises}
+    
+    \umlclass[above=2 of solutions]{solution content}{
+        filename\\
+        content\\
+    }{}
+    \umlassoc[mult1=*,mult2=1]{solution content}{solutions}
+    
+    \umlclass[right=2 of solutions]{solution estimation}{
+        estimation\\
+        value\\
+        solved\\
+        created\\
+    }{}
+    \umlassoc[mult1=*,mult2=1]{solution estimation}{solutions}
+    
+    
+    \umlclass[left=2 of exercise content]{private source}{}{}
+    \umlinherit{private source}{exercise content}
+    
+    \umlclass[below=2 of private source]{private test}{}{}
+    \umlinherit{private test}{exercise content}
+    
+    \umlclass[right=1 of private test]{private file}{}{}
+    \umlinherit{private file}{exercise content}
+    
+    \umlclass[right=2 of exercise content]{public source}{}{}
+    \umlinherit{public source}{exercise content}
+    
+    \umlclass[below=2 of public source]{public test}{}{}
+    \umlinherit{public test}{exercise content}
+    
+    \umlclass[left=1 of public test]{public file}{}{}
+    \umlinherit{public file}{exercise content}
+    
+    
+    \umlclass[above=2 of solution content]{solution test}{}{}
+    \umlinherit{solution test}{solution content}
+    
+    \umlclass[left=1 of solution test]{solution source}{}{}
+    \umlinherit{solution source}{solution content}
+    
+    \umlclass[right=1 of solution test]{solution file}{}{}
+    \umlinherit{solution file}{solution content}
+
+    
+    
+    \end{tikzpicture}
+    \caption{Entity relationship model}
+    \label{model}
+    \end{figure}
+    \end{center}
+
 
 \section{Use cases}
 

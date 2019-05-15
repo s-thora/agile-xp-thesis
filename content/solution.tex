@@ -211,18 +211,21 @@ The server side Java application uses Spring Framework with Maven.
 
 ... controllers... Most of them perform basic CRUD operations. Solution estimation is more complex and will be described in details. ..
 
-Storage package is responsible for managing files in a directory for uploading temporary solution files.
+
+\subsection{Virtual Sandbox}
+Virtual Sandbox is used to fulfil a security requirement, stated in \ref{subsec:security} \nameref{subsec:security}. The result application runs potentially harmful running of the code, provided by user, in a docker container. Compilation may be performed on server, and application would be still secure. But it would require dependencies, which may not be available on server. This section describes virtual sandbox usage.
+
+When server gets a request to estimate the solution, it gets an object with Request Body annotation, which is mapped to a domain object. It is deserialised to a Java object, which contains objects describing the solution files. They are stored to a named by solution is temporary file, stored at an uploading directory. Storage package contains tools for managing files in this uploading directory.
+
+Then Dockerfile with archived Java program are copied to the temporary solution folder. The next step is running the container. Docker Client plugin, provided by Spotify, contains tools for working with Docker. A class was created to use them, it takes care of building an image, container creation, starting it, getting an estimation file content and destroying the container. The result is parsed from JSON format, and based on it estimation object it created.
 
 
-
-
-
-\subsection{Testing module}
+\subsection{Testing Module}
 Testing module is realised as Java program, which runs in Docker container. It uses Spring framework and Maven.
 
 Server application stores Dockerfile and jar of the program. On beginning of the estimation process, these files are moved to a temporary directory for solution. 
 
-We decided to run the program in the container rather than execute commands from the server application or define them in Dockerfile. It brings such a benefit as modularity, because it becomes easier to add more supported for estimation programming languages. 
+Instead of executing commands from the server application or defining them in Dockerfile, the estimator program runs in the Docker container. It brings such a benefit as modularity, because it becomes easier to add more supported for estimation programming languages. 
 for writing the  the server application may use this or another such a module, depending on the program. Also it brings an opportunity to define the output of compilation, testing, error messages.
 
 The estimator program contains two classes for estimating solution. The first class is responsible for exercise type \textit{Interactive exercise} and \textit{Interactive exercise with Files}, and the second handles \textit{Black Box} with \textit{Black Box with Files}. The both classes extend abstract class Estimator and implement estimation function, which starts the process.
@@ -237,9 +240,97 @@ The resulting web application uses PostgreSQL relational database management sys
 
 The CRUD functionality was provided with creating interfaces for every entity, which extend CrudRepository interface.
 
-The tables are mapped to entity model classes, which are Plain Old Java Objects (POJO). 
+
+unique constraints...
 
 ...
 
-+ relations database diagram
+\begin{center}
+\begin{figure}
+\begin{tikzpicture}
+
+\umlclass{courses}{
+    id \textit{serial}\\
+    name \textit{text}\\
+    description \textit{text}\\
+	created \textit{timestamp}\\
+}{}
+
+\umlclass[below=1.5 of courses]{lessons}{
+    id \textit{serial}\\
+	name \textit{text}\\
+    description \textit{text}\\
+    index \textit{int}\\
+    created \textit{timestamp}\\
+	course\_id \textit{int}\\
+}{}
+
+\umlclass[below=1.5 of lessons]{exercise content}{
+    id \textit{serial}\\
+    filename \textit{text}\\
+    content \textit{text}\\
+    exercise\_content\_type \textit{text}\\
+    exercise\_id \textit{int}\\
+}{}
+
+\umlclass[right=1.5 of courses]{solutions}{
+    id \textit{serial}\\
+    created \textit{timestamp}\\
+	exercise\_id \textit{int}\\
+}{}
+
+\umlclass[right=1 of solutions]{solution estimation}{
+    id \textit{serial}\\
+	estimation \textit{text}\\
+	value \textit{int}\\
+    solved \textit{boolean}\\
+    created \textit{timestamp}\\
+	solution\_id \textit{int}\\
+}{}
+
+\umlclass[right=1.5 of lessons]{exercises}{
+    id \textit{serial}\\
+	name \textit{text}\\
+    description \textit{text}\\
+	index \textit{int}\\
+    created \textit{timestamp}\\
+    solved \textit{boolean}\\
+	lesson\_id \textit{int}\\
+    type\_id \textit{int}\\
+}{}
+
+\umlclass[above=1.5 of courses]{solution content}{
+    id \textit{serial}\\
+    filename \textit{text}\\
+    content \textit{text,}\\
+    solution\_content\_type \textit{text}\\
+    solution\_id \textit{int}\\
+}{}
+
+\umlclass[right=1.5 of exercises]{bugs number}{
+    id \textit{serial}\\
+    exercise\_id \textit{int}\\
+    number \textit{int}\\
+}{}
+
+\umlclass[right=1 of exercise content]{exercise types}{
+    id \textit{serial}\\
+	name \textit{text}\\
+	value \textit{text}\\
+}{}
+
+\umldep[anchors=330 and 175]{solution content}{solutions}
+\umlHVHdep[arm1=0.6, anchors=333 and 35]{solutions}{exercises}
+\umldep[anchors=218 and 13]{solution estimation}{solutions}
+\umlHVHdep[arm1=-0.5, anchors=222 and 170]{lessons}{courses}
+\umldep[anchors=220 and 25]{exercises}{lessons}
+\umlHVHdep[arm1=0.5, anchors=310 and 5]{exercises}{exercise types}
+\umldep[anchors=333 and 145]{exercise content}{exercises}
+\umldep[anchors=172 and 35]{bugs number}{exercises}
+
+\end{tikzpicture}
+\caption{Relational model of system data}
+\label{database}
+\end{figure}
+\end{center}
 
