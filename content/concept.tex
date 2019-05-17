@@ -1,27 +1,132 @@
 \chapter[Concept]{Concept}
 \label{ch:concept}
+This chapter is devoted to specification and concept of the resulting web application. The application enables to create and manage online courses and solve the exercises in an interactive way. In this chapter, author of the materials would be further called \textit{teacher} and the solver would be called \textit{student}.
 
-This chapter is devoted to the specifications and concept of the resulting project, which is a web application. The application would enable to create, manage learning materials and solve them in an interactive way. The materials author would be further called \textit{teacher} and the solver would be called \textit{student}.
-
-    \section{Requirements}
-    \label{sec:requirements}
-    This section is devoted to the requirements for the resulting web application and their purpose.
+    \section{Exercises}
+    \label{sec:exercises}
+    Practising agile programming methods is realised by solving the exercises. This section contains description of their concept.
     
         \subsection{Programming language}
-        The web application should support use of Java programming language of versions 8 to 10. Testing framework JUnit 4 would be used for testing. The application should support compilation of Java programs and running the tests.
+        The web application supports use of Java programming language of versions 8 to 11 in exercises. Testing framework JUnit 4 would be used for testing. The application should support compilation of Java programs and running the tests.
         
-    
         \subsection{Courses}
-        The materials would have a structure of courses. Each course would contain lessons, groups of exercises. Application would provide tools for creating the courses, lessons and exercises, edit them and delete. Courses and lessons would have title and description, and it would be able to reorder them. There would be five types of exercises, they are specified in detail in section \ref{subsec:exercise-types} \nameref{subsec:exercise-types}.
+        The learning materials have a structure of courses, and each contains lessons with exercises. Application provides tools for creating and editing course elements, they have a title and description, and it is able to reorder lessons and exercises. There are five types of exercises, they are specified in detail in section \ref{subsec:exercise-types} \nameref{subsec:exercise-types}. Exercises have different states, depending on progress.
+        
+        \subsection{Shown and hidden versions}
+        The application provides creation two versions of source code, tests and files. Shown version is shown to the student, when he opens an exercise. Hidden version is not available to him, it is used to running the tests. In most of the exercises, both of the versions are used, but some of them contain only one.
+        
+        Introducing two versions may be used to show basic code structure to the student, for providing legacy code, or simply for recalling the syntax. On exercise creation, teacher can simply duplicate the hidden version to fill the shown one, but also to create two different.
         
         \subsection{Development environment}
-        The web application would have convenient development environment, and it would be close to conventional IDEs. It would consist of code editors with multiple tabs, these tabs should be easy to add and remove. The environment would enable code execution and providing a feedback. As soon as the programming language is Java, the feedback should include possible compilation errors and tests results.
+        The web application has convenient development environment, and it is close to conventional IDEs. It consists of code editors with multiple tabs, it is easy to add and remove these tabs. The environment enables code execution and providing a feedback. As soon as the programming language is Java, the feedback includes not only tests results, but also possible compilation errors.
+
+        \subsection{Exercise types}
+        \label{subsec:exercise-types}
+        Environment, which supports only work with source code and estimates solutions automatically, is not enough for practising various agile programming methods. There are five types of exercises to provide different ways of practising agile programming methods separately or in combinations. Their concepts, purpose and usage are described in the following sections.
+            
+            
+            \subsubsection{Theory}
+            Exercise type \textit{Theory} is the basic one, it is aimed to provide information to the student. Such an exercise may be used mainly to introduce or conclude a current course or lesson, or to make an overview on legacy code.
+            
+            It provides only a text area and is marked as solved at the moment, when is viewed by the student. On exercise creation and update, the teacher can use text editor with ability to format, e.g. to provide example source code. The formatted text is provided to the student.
+        
+        
+            \subsubsection{Interactive Exercise}
+            \label{subsubsec:whitebox}
+            \textit{Interactive Exercise} type provides tools for programming.
+            On exercise creation, the teacher is required to fill title and description of exercise. Then he uses editors to bring in a shown version of source code. Next editors are designed for tests. Teacher may use them to fill hidden tests to control the solving progress. Also he may provide shown tests, e.g. to recall the JUnit 4 syntax.
+            
+            On students side, an exercise of this type contains an exercise description and two editors. The first one is for source code, and the second one is for tests. The student may use the environment to solve an exercise, and he may run his code withing the web application and get feedback. The provided feedback consists of two parts. The first one tells about compilation and tests results for the students code from the development environment. The second one is based on the teacher's code, which is not be available for the student.
+            
+            
+            \subsubsection{Interactive Exercise with Files}
+            This exercise type provides the same features as \hyperref[subsubsec:whitebox]{previous one}, and expands its tools with working with files. One more text editor contains files, and there are teachers' and students' versions as well. These files may be used for the purpose of testing.
+            
+            
+            \subsubsection{Black Box}
+            \label{subsubsec:blackbox}
+            The next exercise type is named \textit{Black Box}, what means a system or a function, for which only its input and output is known. This term describes the main feature of this type, since the student may not see source code, but may send input and get some form of output from the program. This tool is useful for practising unit testing and test-driven development. On working on this exercise, the student may try to find mistakes in the hidden program with the use of tests.
+            
+            To create an exercise of this type, teacher should fill its title and description. The second should contain code structure or functions names, or any kind of information to give the student needed knowledge about the hidden code. So he would be able to call necessary functions from his tests. Except filling an exercise title and description on exercise creation, the teacher should enter controlling source code, which would be hidden from the student, it should be compilable and contain several logical mistakes. The application would provide information for the teacher on how to design the source code, so it would be used correctly. The tests, which would be shown to the student, would be filled as well. The purpose of these hidden tests is the same as for such a tests in exercise type \hyperref[subsubsec:whitebox]{\textit{Interactive Exercise}}.
+            
+            To pass such an exercise, the student should write tests, which would not be passed by the program. The student would run his tests for the hidden program, and would get feedback, telling the number of found mistakes and their total number.
+            
+            Estimation process was designed in such a way, so only correct solutions can pass. Incorrect solutions are ignored and not counted to the solution. Examples of such a solutions are the following: the student may write test, which would not be passed, but it would not find the mistake. It may happen, if this test would not pass a correct version of the hidden program as well. This solution should be ignored. Another example is writing several tests, so they would find the same mistake several times. Only one test would be counted for solution, the rest would be ignored.
+            
+            
+            \subsubsection{Black Box with Files}
+            This exercise type extends \hyperref[subsubsec:blackbox]{previous one} with ability to work with files, which are used for testing.
+
+
+\section{Architecture}
+
+...
+
+\section{User interface}
+This chapter is devoted to user interface concept.
+    
+    \subsection{Exercise creation and editing}
+    Exercise creation and editing has the same structure, with difference in handing the user input and availability of initially defined values. The input fields change dynamically, depending on the exercise type of the exercise. It is possible to change exercise type without losing data the fields contain.
+    
+    Non-dynamic part contains fields for exercise title, description and exercise type selector. When an exercise type is chosen, the form changes and the corresponding editors appear. Every editor component have the same structure, and differ only with content and handling the user input.
+    
+    There are three types of editor. The first one is a source code editor, used for exercises of type \textit{Interactive Exercise} and \textit{Interactive Exercise with Files}. The second one is tests editor and used for exercises of type \textit{Black Box} and \textit{Black Box with Files}. And the last one is text editor, used for exercises of type \textit{Interactive Exercise with Files} and \textit{Black Box with Files}.
+    
+    The first type \textit{Theory} contains only description of the exercise. Exercise type \textit{Interactive Exercise} has editors for source code and tests, and exercise type \textit{Interactive Exercise with Files} has one more editor for text files.
+    
+    Application provides tool for convenient creation of two versions of source code, tests and text files. On exercise creation or update, there is an editor for a hidden version, and there is a select component below. The component contains two options for the shown version. The first option, ``the same``, is used when an exercise author wants the shown version to be the same a hidden. And the second option, ``custom``, is used to create or edit a different shown version, and an new editor element appears. Some of the exercise types requires only a hidden or shown version of source code or test, so there is no select component.
+    
+    The submit button is enabled as soon as the form input is valid. On submit, there appears a notification telling if the data were saved successfully. When cheating new exercise, there appears suggestion to create another one.
+    
+    
+    \subsection{Exercise solving}
+    When solving an exercise, its view is determined by its type. Every exercise types has view and functionality according to the concept, described in a section \ref{subsec:exercise-types} \nameref{subsec:exercise-types}.
+    
+    Every exercise contains a component for displaying a description. The description content is created with use of rich text editor. Editor components from the previous section are used for exercise solving as well.
+    
+    Every editor component is extended with version control component, as it required at the concept section \ref{subsec:version-control} \nameref{subsec:version-control}. It enables resetting the editor content and loading content from a submitted version.
+    
+    
+    \subsection{Run output}
+    On solving exercise of any type, except \textit{Thesis}, there is available a ``Run`` button for estimation a current result. When an exercise is submitted for the first time, an output area appears. During the estimation process, it contains ``Loading..` message. When feedback is ready, it is printed out within the output. Feedback contains compilation and testing result for both public and private versions, and represented as percentage solving progress.
+    
+    Estimation runs two times for exercise types \textit{Interactive Exercise} and \textit{Interactive Exercise with Files}. First time for public version (running student's tests on his sources) and second time for private version (running teacher's tests on student's sources). The progress is represented as percentage and means how much tests were passed out of their total number.
+    
+    Testing result for exercise types \textit{Black Box} and \textit{Black Box with Files} contains only number of revealed mistakes and total number of them. The progress is represented as percentage, corresponding to the found mistakes number.
+    
+    
+    \subsection{Exercise Toolbar}
+    The pages for solving the exercises contain two equal toolbars, one on the top and second on the bottom of the page. They contain the mentioned ``Back`` button, navigation within the lesson exercises, and there is a flag representing the progress on the solving current exercise. Toolbar view changes dynamically on an exercise change.
+
+
+\section{Data structure}
+...
+
+    \subsection{Data Model}
+    This section describes data model of the application.
+    
+    \input{content/uml/erm}
+
+
+\section{Use cases}
+
+...
+
+The main page provides a list of the created courses and information on them. The user may choose one of the listed courses to enter it. Also the user may manage the courses, i.e. create, edit or delete them, with the use of the button. This and the rest of the pages contain ``Back`` button for easier navigation.
+
+Each course page contains an information about it. There is an expansion panel below with lessons and exercises they include. Every lesson and exercise may managed as well. Management includes lesson editing, deleting, reordering and creation.
+
+...
+
+\section{Technical Requirements}
+    \label{sec:requirements}
+    This section is devoted to the requirements for the resulting web application and their purpose.
         
         \subsection{Version control}
         \label{subsec:version-control}
-        Another requirement for the resulting application is version control of the student's solutions. The web application should store and show source code, tests and files, which are submitted and run by student.
+        One of the requirements for the resulting application is version control of the student's solutions. The web application stores and shows source code, tests and files, which are submitted and run by student.
         
-        When solving exercise, student would be able to view previous versions and insert their files to the editor. He would be able to access the files from any exercise within a current course. As soon as there may be a very large amount of solutions, they all would not be loaded at once, but user would be able to load them page by page. Solutions would be ordered by date and time of submitting and user would be able to filter them by completeness. 
+        When solving an exercise, the student can view previous versions and copy their files content to the editor. He can access the files from any exercise within a current course. As soon as there is a very large amount of solutions, they all would not be loaded at once, but user may load them page by page. Solutions are ordered by time of submitting and user may filter them by completeness. 
         
         This feature is useful for refactoring or working with legacy code, e.g. when student needs to extend tests from previous solution with new ones.
         
@@ -34,205 +139,6 @@ This chapter is devoted to the specifications and concept of the resulting proje
         Another web application security risk is \textit{Cross-Site Scripting} (XSS), which allows malicious code to be added to a web page via user input, e.g. form submissions, and used in it \cite[A7-Cross-Site Scripting (XSS)]{owasp_xss}. To prevent this, the input would be sanitised: rather than accept or reject input, another option is to change the user input into an acceptable format \cite[Sanitize]{owasp_sanitize}. Such an attack may be used in text editor for an exercise description.
         
         \subsection{Error handling}
-        Web application should be robust, what can be achieved with efficient approach for errors handling. Such an approach should provide informative error messages and good user experience.
-
-    \section{Exercises}
-    \label{sec:exercises}
-    Practising agile programming methods would be realised by solving exercises. To practice various agile programming methods, it is not enough to have an environment, which supports only work with source code and estimates solutions automatically. All of these methods include unit testing, so works with tests would be included. Support of the files would expand the possibilities of testing.
-
-
-        \subsection{Exercise types}
-        \label{subsec:exercise-types}
-        There would be five types of exercises to provide different ways to practice agile programming methods separately or in combinations. Their concepts, purpose and usage would be described in the following sections.
-            
-            
-            \subsubsection{Theory}
-            Exercise type \textit{Theory} is the basic one, it is aimed to provide information. May be used mainly to introduce or conclude a current course or lesson, or to make an overview on legacy code.
-            
-            It would provide only a text area and would be marked as solved at the moment, when is viewed by the student. On exercise creation and update, the teacher would be able to use text editor with ability to format, e.g. to provide example source code. The formatted text would be provided to the student.
+        To make the web application robust, errors handling should be done efficiently. Such an approach provides informative error messages and good user experience.
         
-        
-            \subsubsection{Interactive Exercise}
-            \label{subsubsec:whitebox}
-            \textit{Interactive Exercise} type would provide tools for programming.
-            On exercise creation, the teacher would be required to fill title and description of exercise. Then he would use editors to bring in source code, initially provided to the student. It would show basic code structure to the student, but also may be useful for further work with legacy code. Next editors would be designed for tests. Teacher would use them to fill hidden tests to control the solving progress. Also he would provide tests, which would be initially provided to the student, e.g. to recall the JUnit 4 syntax. Teacher would be able to simply duplicate the hidden version to fill the shown one, but also to create two different.
-            
-            On students side, it would contain an exercise description and two editors, making a development environment. The first one is for source code, and the second one is for tests. The student would use the environment to solve an exercise, and he would be able to run his code withing the web application and get feedback. The provided feedback would be consisted of two parts. The first one would tell about compilation and tests results for the students code from the development environment. The second one would be based on the teachers code, which would not be available for the student.
-            
-            
-            \subsubsection{Interactive Exercise with Files}
-            This exercise type provides the same features as \hyperref[subsubsec:whitebox]{previous one}, and expands its tools working with files. One more text editor would contain files, and there would be teachers and students versions as well. These files would be used for the purpose of testing.
-            
-            
-            \subsubsection{Black Box}
-            \label{subsubsec:blackbox}
-            The next exercise type is named \textit{Black Box}, what means a system or a function, for which only its input and output is known. This term describes the main feature of this type, since the student would not see source code, but would send input and get some form of output from the program. This tool is useful for practising unit testing and test-driven development. On working on this exercise, the student would try to find mistakes in the hidden program with the use of tests.
-            
-            To create an exercise of this type, teacher would fill its title and description. The latter should contain code structure or functions names, or any kind of information to give the student knowledge about the hidden code. So he would be able to call necessary functions from his tests. Except filling an exercise title and description on exercise creation, the teacher would enter controlling source code, which would be hidden from the student, would be compilable and contain several logical mistakes. The application would provide information for the teacher on how to design the source code, so it would be used correctly. The tests, which would be shown to the student, would be filled as well. The purpose of these hidden tests is the same as for such a tests in exercise type \hyperref[subsubsec:whitebox]{\textit{Interactive Exercise}}.
-            
-            The student would write tests, which would not be passed be the program. The student would run his tests for the hidden program, and would get feedback, telling the number of found mistakes and their total number.
-            
-            The application would provide this functionality and solving \textit{Black Box} exercise is a correct way. Incorrect solutions would be ignored and not counted to the solution. Examples of such a solutions are the following: the student may write test, which would not be passed, but it would not find the mistake. It may happen, if this test would not pass a correct version of the hidden program as well. This solution should be ignored. Another example is writing several tests, so they would find the same mistake several times. Only one test would be counted for solution, the rest would be ignored.
-            
-            
-            \subsubsection{Black Box with Files}
-            This exercise type extends \hyperref[subsubsec:blackbox]{previous one} with ability to work with files, which would be used for testing.
-
-
-\section{Architecture}
-
-...
-
-\section{User interface}
-This chapter is devoted to user interface concept.
-    
-    \subsection{Exercise creation and editing}
-    Exercise creation and editing would have the same structure, with difference in handing the user input and availability of initially defined values. The input fields would change dynamically, depending on the exercise type of the exercise. It would be possible to change exercise type without losing data the fields contain.
-    
-    Non-dynamic part would contain fields for exercise title, description and exercise type selector. When an exercise type is chosen, the form would change and the corresponding editors appear. Every editor component would have the same structure, and differ only with content and handling the user input.
-    
-    There would be three types of editor. The first one would be a source code editor, used for exercises of type \textit{Interactive Exercise} and \textit{Interactive Exercise with Files}. The second would be tests editor and used for exercises of type \textit{Black Box} and \textit{Black Box with Files}. And the last one would be text editor, used for exercises of type \textit{Interactive Exercise with Files} and \textit{Black Box with Files}.
-    
-    The first type \textit{Theory} would contain only description of the exercise. Exercise type \textit{Interactive Exercise} would have editors for source code and tests, and exercise type \textit{Interactive Exercise with Files} would have one more editor for text files.
-    
-    One of the required features, stated in the corresponding section \ref{sec:requirements} \nameref{sec:requirements}, was convenient creation of two versions of source code, tests and text files. The shown version is for testing and would be available only for a teacher, and the hidden version is for showing to a student when solving. On exercise creation or update, there would be an editor for a hidden version, and there would be a select component below. The component contains two options for the shown version. The first option, ``the same``, would be used when an exercise author wants the shown version to be the same a hidden. And the second option, ``custom``, would be used to create or edit a different shown version, and an new editor element appears. Some of the exercise types would require only a hidden or shown version of source code or test, so there would be no select component.
-    
-    The submit button is enabled as soon as the form input is valid. On submit, there would appear a notification telling if the data were saved successfully. When cheating new exercise, there would be an suggestion to create another one.
-    
-    
-    \subsection{Exercise solving}
-    When solving an exercise, its view is determined by its type. Every exercise types has view and functionality according to the concept, described in a section \ref{subsec:exercise-types} \nameref{subsec:exercise-types}.
-    
-    Every exercise would contain a component for displaying a description. The description content would be created with use of rich text editor. Editor components from the previous section are used for exercise solving as well.
-    
-    Every editor component would be extended with version control component, as it required at the concept section \ref{subsec:version-control} \nameref{subsec:version-control}. It would enable resetting the editor content and loading content from a submitted version.
-    
-    
-    \subsection{Run output}
-    On solving exercise of any type, except \textit{Thesis}, there would be available a ``Run`` button for estimation a current result. When an exercise is submitted for the first time, an output area would appear. During the estimation process, it would contain ``Loading..` message. When feedback would be ready, it is would be printed out within the output. Feedback would contain compilation and testing result for both public and private versions, and represented as percentage solving progress.
-    
-    Estimation would run two times for exercise types \textit{Interactive Exercise} and \textit{Interactive Exercise with Files}. First time for public version (running student's tests on his sources) and second time for private version (running teacher's tests on student's sources). The progress would be represented as percentage and mean how much tests were passed out of their total number.
-    
-    Testing result for exercise types \textit{Black Box} and \textit{Black Box with Files} would contain only number of revealed mistakes and total number of them. The progress would be represented as percentage, corresponding to the found mistakes number.
-    
-    
-    \subsection{Exercise Toolbar}
-    The pages for solving the exercises would contain two equal toolbars, one on the top and second on the bottom of the page. They would contain the mentioned ``Back`` button, navigation within the lesson exercises, and there would be a flag representing the progress on the solving current exercise. Toolbar view would change dynamically on an exercise change.
-
-
-\section{Data structure}
-...
-
-    \subsection{Data Model}
-    This section describes data model of the application.
-    
-    \begin{center}
-    \begin{figure}[h]
-    \begin{tikzpicture}
-    
-    \umlclass{courses}{
-    	name\\
-    	description\\
-    	created\\
-    }{}
-    
-    \umlclass[below=1 of courses]{lessons}{
-    	name\\
-    	description\\
-    	created\\
-    	index\\
-    }{}
-    \umlassoc[mult1=*,mult2=1]{lessons}{courses}
-    
-    \umlclass[right=2 of lessons]{solutions}{
-        created\\
-    }{}
-    
-    \umlclass[below=2 of solutions]{exercises}{
-    	name\\
-    	description\\
-    	created\\
-    	index\\
-    	solved\\
-    }{}
-    \umlassoc[mult1=*,mult2=1]{exercises}{lessons}
-    \umlassoc[mult1=*,mult2=1]{solutions}{exercises}
-    
-    \umlclass[below=2 of exercises]{exercise content}{
-        filename\\
-        content\\
-    }{}
-    \umlassoc[mult1=*,mult2=1]{exercise content}{exercises}
-    
-    \umlclass[left=2 of exercises]{exercise types}{
-        name\\
-        value\\
-    }{}
-    \umlassoc[mult1=*,mult2=1]{exercises}{exercise types}
-    
-    \umlclass[right=2 of exercises]{bugs number}{
-        number\\
-    }{}
-    \umlassoc[mult1=*,mult2=1]{bugs number}{exercises}
-    
-    \umlclass[above=2 of solutions]{solution content}{
-        filename\\
-        content\\
-    }{}
-    \umlassoc[mult1=*,mult2=1]{solution content}{solutions}
-    
-    \umlclass[right=2 of solutions]{solution estimation}{
-        estimation\\
-        value\\
-        solved\\
-        created\\
-    }{}
-    \umlassoc[mult1=*,mult2=1]{solution estimation}{solutions}
-    
-    
-    \umlclass[left=2 of exercise content]{private source}{}{}
-    \umlinherit{private source}{exercise content}
-    
-    \umlclass[below=2 of private source]{private test}{}{}
-    \umlinherit{private test}{exercise content}
-    
-    \umlclass[right=1 of private test]{private file}{}{}
-    \umlinherit{private file}{exercise content}
-    
-    \umlclass[right=2 of exercise content]{public source}{}{}
-    \umlinherit{public source}{exercise content}
-    
-    \umlclass[below=2 of public source]{public test}{}{}
-    \umlinherit{public test}{exercise content}
-    
-    \umlclass[left=1 of public test]{public file}{}{}
-    \umlinherit{public file}{exercise content}
-    
-    
-    \umlclass[above=2 of solution content]{solution test}{}{}
-    \umlinherit{solution test}{solution content}
-    
-    \umlclass[left=1 of solution test]{solution source}{}{}
-    \umlinherit{solution source}{solution content}
-    
-    \umlclass[right=1 of solution test]{solution file}{}{}
-    \umlinherit{solution file}{solution content}
-
-    
-    
-    \end{tikzpicture}
-    \caption{Entity relationship model}
-    \label{model}
-    \end{figure}
-    \end{center}
-
-
-\section{Use cases}
-
-...
-
-The main page provides a list of the created courses and information on them. The user may choose one of the listed courses to enter it. Also the user may manage the courses, i.e. create, edit or delete them, with the use of the button. This and the rest of the pages contain ``Back`` button for easier navigation.
-
-Each course page contains an information about it. There is an expansion panel below with lessons and exercises they include. Every lesson and exercise may managed as well. Management includes lesson editing, deleting, reordering and creation.
-
-...
+        ...
