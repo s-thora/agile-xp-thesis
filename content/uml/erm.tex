@@ -1,5 +1,5 @@
 \begin{center}
-    \begin{figure}[h]
+    \begin{figure}
     \begin{tikzpicture}
     
     \umlclass{courses}{
@@ -45,7 +45,7 @@
     \umlclass[right=2 of exercises]{bugs number}{
         number\\
     }{}
-    \umlassoc[mult1=*,mult2=1]{bugs number}{exercises}
+    \umlassoc[mult1=1,mult2=1]{bugs number}{exercises}
     
     \umlclass[above=2 of solutions]{solution content}{
         filename\\
@@ -92,6 +92,6 @@
     
     \end{tikzpicture}
     \caption{Entity relationship model}
-    \label{model}
+    \label{diagram:entity-rel-model}
     \end{figure}
     \end{center}

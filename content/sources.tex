@@ -1,11 +1,8 @@
 \chapter{Sources}
-
 \label{ch:sources}
-
 The chapter on sources is devoted to the description of the theory, used for the thesis realisation, overview of the existing solutions of similar problems and introduction of the used technologies.
 
 \section{Agile software development}
-
 The aim of the web application is to introduce and teach how to use the selected methodologies of agile programming. They are based on principles of Agile software development, stated by authors of Manifesto for Agile Software Development \cite{manifesto}.
 
 This approach advocates adaptive planning, evolutionary development, empirical knowledge, and continual improvement, and it encourages rapid and flexible response to change \cite{swdev}. Detailed planning of a large amount of the software process at once for a long span of time is a fragile approach and leads to further growing number of problems, when there is a need of change. The larger the is the system, the more difficult it may be to add new features, and the more difficult is it to fix bugs, and the more resources it requires. The agile methods are rather adaptive than predictive. So they welcome change, they are able to adapt and even thrive on change \cite[From Nothing, to Monumental, to Agile]{agile_fowler}. 
@@ -97,31 +94,24 @@ The aim of the web application is to explain such an approach, show examples of 
 
 The web application would be presented in a form of an interactive online course. Its interface and control would be inspired by the existing platforms, introduced in the following subsections.
 
-\subsection{Similar Bachelor and Master theses result works}
+\subsection{Similar Bachelor and Master theses}
+This section will introduce and compare the resulting applications of work on Bachelor and Master theses at faculty of Mathematics, Physics and Informatics of Comenius University in Bratislava. The results of the introduced Bachelor and Master theses were created for practising single agile programming methods.
 
-Results of work on Bachelor and Master theses at Comenius University in Bratislava, faculty of Mathematics, Physics and Informatics will be introduced in the following subsections.
+Bachelor thesis with title Web learning programming using TDD technology was written by Tomáš Bočinec in 2018 (original title is \textit{Webová výuka programovania pomocou metodológie TDD}). The resulting web application is a good example of a simple and functional learning environment. It leads through a sequence of steps for test-driven development, which is one of the agile programming methods.
 
-\subsubsection{Web learning programming using TDD technology}
+Bachelor thesis Web learning programming in C++ using Unit testing (original title: Webová výuka programovania v C++ pomocou jednotkového testovania), which was written by Viliam Vakerman. The resulting development environment was created for unit testing learning, which is a key method and is common for all of the agile programming methods. 
 
-This Bachelor thesis (original title: Webová výuka programovania pomocou metodológie TDD) was written by Tomáš Bočinec in 2018.
+Another Bachelor thesis Web environment for learning code refactoring (original title: Vývojové prostredie pre učenie sa refaktorizácie kódu) was written by Ivan Latták. The techniques of refactoring are compulsory to get all the benefits of agile programming.
 
-The resulting web application is a good example of a simple and functional learning environment. The web application for learning Agile programming methods would use similar mechanism to compile the provided source code and tests, to run the tests and return the result. But more modern and efficient technologies would be used. And the exercises would have more specific structure for practising the Agile programming methods. The details are introduced in the next section \ref{sect:tech} on used technologies.
+The web application for learning Agile programming methods uses similar mechanism to compile the provided source code and tests, to run the tests and return the result. These works share the same core architecture, as soon as they are both web applications, which use client-server model.
 
-% Other similar environments, which are the results of Bachelor and Master theses
+The resulting application of this thesis is aimed to teach agile programming methods, which include TDD and more other techniques. As a result, the web application suggests different, more specific exercises structures and tools for creating and solving them. 
 
-% \subsubsection{Web environment for development in C++}
+The learning process has a form of courses. This approach enables making the exercises sequential, solved step by step, and grouped into lessons by their concept. Also agile methods are useful for working on projects, so the suggested course structure created a good framework for working on a project while learning.
 
-% This Master thesis (original title: Webové vývojové prostredie pre jazyk C++) was written by Daniel Krajč in 2010. The web application was a result of the work on it. This web application was used at the faculty for subject Programovacie techniky v C++ for teaching programming in a corresponding programming language \cite{mt_krajc}.
+As soon as methodologies include techniques on working with legacy code, the application enables two new features. The first one is used on exercise creation. An exercise author may create such a version of source code, test of file, which would be shown to the student when he starts working on exercise. This version may contain a legacy code for further work on it. The second feature is loading the content of the submitted result files to the development environment. Application also enables use of files, which may be used by tests.
 
-
-% \subsubsection{Web learning programming in C++ using Unit testing}
-
-% This Bachelor thesis (original title: Webová výuka programovania v C++ pomocou jednotkového testovania) was written by Viliam Vakerman.
-
-% \subsubsection{Web environment for learning code refactoring}
-
-% This Bachelor thesis (original title: Vývojové prostredie pre učenie sa refaktorizácie kódu) was written by Ivan Latták.
-
+More modern, efficient and widely used technologies would be used. Also the used technologies made it possible to develop a large application rapidly. Their details are introduced in the next section \ref{sect:tech} \nameref{sect:tech}.
 
 \subsection{Similar web applications}
 
@@ -159,27 +149,26 @@ The technologies, which would be used in the web application for learning Agile 
 Web application would use client-server architecture. The server part would provide the central functionality. The clients would connect to it and request performing the tasks, and the server would provide the results.
 
 \subsection{Client side}
+This section introduces the technologies, used on for creation an application on the client side.
 
-The client side application would use Angular. It a structural framework for dynamic web applications, which is based on JavaScript pment to initialize, develop, scaffold, and maintain the application, add new components, modules and services \cite{angular_cli}. Angular enables development of modular and reusable dynamical web applications.
+\subsubsection{Angular}
+The client side application uses Angular. It is a structural open-source web application framework led by the Angular Team at Google. Angular enables development of dynamic, modular and reusable dynamical web applications \cite{angular_getting_started}.
 
-\subsubsection{TypeScript}
 The Angular framework is built entirely in TypeScript, and it is used as a primary 
 language. As soon as browsers cannot execute TypeScript directly, the code must be converted into JavaScript with tsc compiler \cite[TypeScript Configuration]{angular}.
 
-\subsubsection{HttpClient}
+Angular Material library was used to create consistent design, its usage accelerated the application development and made it possible to focus on its logic and useful features.
 
+\subsubsection{HttpClient}
 The front-end of the application communicates with backend services over the HTTP protocol. The web browsers support APIs for making HTTP requests of two different types: the XMLHttpRequest interface and the fetch() API. Angular offers the HttpClient, which is a simplifies HTTP API that rests on the XMLHTTPRequest interface exposed by browsers. Also it includes testability features, typed request and response objects, request and response interception, Observable APIs, and streamlined error handling \cite[HttpClient]{angular}. Angular makes use of observables as an interface to handle a variety of common asynchronous operations. The observables provide support for passing messages between publishers and subscribers \cite[Observables \& RxJS]{angular}. 
 
 \subsubsection{Sass}
-
 User interface would be implemented using HTML5 and CSS3. Sass, a preprocessor scripting language, would be compiled into CSS. The CSS preproccessors are responsible for recompiling the existing code into the format compliant to the CSS standard. Sass provides such a functionality as multilevel nesting, what improves readability of the code and reduces its volume. It also allows to declare variables. CSS3 also has such a feature, but it is not supported by all the browsers, i.e. Internet Explorer. Mixin insertion solves the problem of a need to duplicate the code. Also Sass enables expanding, inheriting and importing the styles \cite{sass}.
 
 \subsection{Server side}
-
 The server side Java application would use Spring Framework 5.0. The core functionality of the web application is compilation of the source code and tests, running these tests and returning the result. When the server part would get a request to provide this functionality, the code would be compiled.
 
 \subsubsection{Maven}
-
 Maven is a software project management and comprehension tool. Based on the concept of a project object model (POM), Maven can manage a project's build, reporting and documentation from a central piece of information. Maven automates such a tasks as downloading dependencies, putting additional jar files on a project classpath, compiling source code, running tests, packaging compiled code into deployable artifacts such as JAR, WAR and ZIP files, and deploying these artifacts to an application server \cite{maven}. Such an automatising assures avoiding the mistakes, which may occur when building the software manually.
 
 \subsubsection{Spring}
@@ -189,11 +178,9 @@ The Spring Framework is an open source developed by Pivotal Software application
 It contains modules, which make development faster and simpler. Spring Boot is an extension of the Spring Framework, a convention-over-configuration solution. In other words, it makes it easy to create applications, which can ``just run'' \cite{spring_boot}.
 
 \subsubsection{Database technologies}
-
-Database would be used to store data about users, their activity, created and submitted assignments. Spring Data would be used to provide Spring-based programming model to access the data and relational database PostreSQL. Spring Data JPA module would be used to implement JPA based repositories \cite{spring_data}. JPA is a Java Persistent API, which provides an object/relational mapping facility for managing relational data in Java applications \cite[Part VI, Persistence]{jpa}.
+Spring Data is used to provide Spring-based programming model to access the data and relational database PostreSQL. Spring Data JPA module is used to implement JPA based repositories \cite{spring_data}. JSpring Data JPA is a framework that handles most of the complexity of JDBC-based database access and object-relational mappings. Hibernate framework implements the JPA and provides mapping of the application domain objects to the relational database tables. It adds a layer on top of JPA and provides a no-code implementation of the repository pattern and the creation of database queries from method names. \cite[Part VI, Persistence]{jpa}. The CRUD functionality is provided with creating interfaces for every entity, which extend CrudRepository interface. Using this tool made it possible to focus on business logic rather then on setting up the data layer access.
 
 \subsubsection{Testing technologies}
-
 Java source code and tests would be used within the web application. The server side application would receive a request to compile the provided source code and tests. JUnit 4 framework would be used to write the tests, which is very convenient and intuitive in use. 
 
 There would be two types of the tests. The tests of the first type would be written by the students as a part of exercises. The tests of the second type are written by the exercise author, and they are not accessible by student from the web application. The exercise author would also set the scope of the viewed test results. It ranges from providing of the whole information about the tests expected and actual values, to the providing of the information if the test was passed only.
