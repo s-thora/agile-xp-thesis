@@ -228,19 +228,21 @@ This application uses full-stack web framework as soon as it supports front-end 
         Instead of executing commands from the server application or defining them in Dockerfile, the estimator program runs in the Docker container. It brings such a benefit as modularity, because it becomes easier to add more supported for estimation programming languages. 
         for writing the  the server application may use this or another such a module, depending on the program. Also it brings an opportunity to define the output of compilation, testing, error messages.
         
-        The estimator program contains two classes for estimating solution. The first class is responsible for exercise type \textit{Interactive exercise} and \textit{Interactive exercise with Files}, and the second handles \textit{Black Box} with \textit{Black Box with Files}. The both classes extend abstract class Estimator and implement estimation function, which starts the process.
+        The estimator program contains two classes for estimating a solution. The first class is responsible for exercise type \textit{Interactive exercise} and \textit{Interactive exercise with Files}, and the second handles \textit{Black Box} with \textit{Black Box with Files}. The both classes extend abstract class Estimator and implement estimation function, which starts the process.
+        
+        The result of the estimation is hold in an instance of Estimation class. It has an attribute \texttt{value}, which represents the progress percentage. For \textit{Interactive exercise (with Files)} type, the progress means how much tests were passed out of their total amount. Result class of JUnit API collects and summarises information from running multiple tests, but it does not provide information on total tests number. However, this number can be received during the tests running with JUnit API. TestResult class was created to store the total tests number, it extends Result class and adds a necessary attribute. Finally, the test result with compilation results are stored in an instance of Estimation class.
         
         The estimation result is created with converting the estimation object into JSON string with use of Gson plugin from Google. This output is written to a text file. Docker Client plugin enables getting an archive of a filesystem resource in a container, so the file with estimation can be read with the server application.
         
-        Another way to deliver the result to the server is printing it to the console, and Docker Client may read it. This simple solution has one problem. When solution program contains prints to the console, they also would be received by the server, and it becomes necessary to separate it to parse the estimation string. As a result, writing the result to the file is more efficient.
+        Another way to deliver the result to the server is printing it to the console, and Docker Client may receive it. This simple solution has one problem. When solution program prints to console, its output also would be received by the server. As a result, writing the result to the file is more efficient.
     
     
     \section{Database}
-    The resulting web application uses PostgreSQL relational database management system.
+    The resulting web application uses PostgreSQL relational database management system. The entity-relationship model of the database system should have been transformed into relation model for database creation and further implementation.
     
-    The entity-relationship model, which was illustrated with diagram of the database system \ref{diagram:entity-rel-model} \nameref{diagram:entity-rel-model}, contains subsets. This relation should have been transformed to create the database and further implementation. The set of entities \texttt{exercise content} has the same attributes as the entities, which are in a subset relationship with it. Also the entities of one subset would be separated from another. Single Table strategy was used to solve this issue. As a result, all the subsets are stored in the same table \texttt{exercise content}, and are distinguished by \texttt{exercise content type} attribute. Hibernate Inheritance Mapping was used to implement this relation as inheritance, a Single Table inheritance strategy was used. The same approach was used on transformation from entity-relationship model to relation model for table \texttt{solution content} and subsets of its entities.
+    Most of the entities are in many-to-one, one-to-many or one-to-one relationship. These relationships were transformed with use of references and unique constraints.
     
-    unique constraints...
+    The set of entities \texttt{exercise content} has the same attributes as the entities, which are in a subset relationship with it. Single Table strategy was used for transformation. As a result, all the subsets are stored in the same table \texttt{exercise content}, and are distinguished by \texttt{exercise content type} attribute. Hibernate Inheritance Mapping was used to implement this relation as inheritance, a Single Table inheritance strategy was used. The same approach was used on transformation from entity-relationship model to relation model for table \texttt{solution content} and subsets of its entities.
     
     \input{content/uml/rm}
 
