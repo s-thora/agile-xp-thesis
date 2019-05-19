@@ -82,7 +82,7 @@ This chapter is devoted to specification and concept of the resulting web applic
     \section{Architecture}
     The application uses client-server architecture, its components are illustrated on \ref{fig:component-diagram} \nameref{fig:component-diagram}.
     
-    The topmost presentation level of the application is provided with Browser subsystem. It communicates with Server subsystem, which is responsible for business logic and data access. Server subsystem consists of several components. Service Components are used to implement business logic on a separate layer. One of them, Estimator Service Component, receives estimation from \texttt{Estimation module}, which creates it with Estimator-Java Component. Every data entity has own Repository Component, which extends CrudRepository to provide CRUD functionality for the entity class that is being managed. Server accesses Database server, which belongs to Database subsystem, and am Estimation module.
+    The topmost presentation level of the application is provided with Browser subsystem. It communicates with Server subsystem, which is responsible for business logic and data access. Server subsystem consists of several components. Server accesses Database server, which belongs to Database subsystem, and am Estimation module.
     
     \begin{sidewaysfigure}
     \centerline{
@@ -166,8 +166,3 @@ This chapter is devoted to specification and concept of the resulting web applic
         Running the programs, written by teachers and students, on the server brings risks for the system. Running the program would be isolated, and its would have limited access to the rest of the system. It may be aimed with use of a form of a software vitalisation, a \textit{virtual sandbox}.
         
         Another web application security risk is \textit{Cross-Site Scripting} (XSS), which allows malicious code to be added to a web page via user input, e.g. form submissions, and used in it \cite[A7-Cross-Site Scripting (XSS)]{owasp_xss}. To prevent this, the input would be sanitised: rather than accept or reject input, another option is to change the user input into an acceptable format \cite[Sanitize]{owasp_sanitize}. Such an attack may be used in text editor for an exercise description.
-        
-        \subsection{Error handling}
-        To make the web application robust, errors handling should be done efficiently. Such an approach provides informative error messages and good user experience.
-        
-        ...

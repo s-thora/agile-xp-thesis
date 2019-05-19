@@ -207,10 +207,7 @@ This application uses full-stack web framework as soon as it supports front-end 
     \section{Back-end}
     This section describes implementation of application, which runs on server and is responsible for handling business logic and data storage.
     
-    The server side Java application uses Spring Framework, and is managed with Maven.
-    
-    ... controllers... Most of them perform basic CRUD operations. Solution estimation is more complex and will be described in details. ..
-    
+    The server side Java application uses Spring Framework, and is managed with Maven. HTTP requests are handled by Controller components. Service components are used to implement business logic on a separate layer. One of them, Estimator Service component, receives estimation from estimation module, which creates it with Estimator-Java Component. Every data entity has own Repository component, which extends CrudRepository to provide CRUD functionality for the entity class that is being managed.
     
         \subsection{Virtual Sandbox}
         Virtual Sandbox is used to fulfil a security requirement, stated in \ref{subsec:security} \nameref{subsec:security}. The result application runs potentially harmful running of the code, provided by user, in a docker container. Compilation may be performed on server, and application would be still secure. But it would require dependencies, which may not be available on server. This section describes virtual sandbox usage.
@@ -220,8 +217,8 @@ This application uses full-stack web framework as soon as it supports front-end 
         Then Dockerfile with archived Java program are copied to the temporary solution folder. The next step is running the container. Docker Client plugin, provided by Spotify, contains tools for working with Docker. A class was created to use them, it takes care of building an image, container creation, starting it, getting an estimation file content and destroying the container. The result is parsed from JSON format, and based on it estimation object it created.
         
         
-        \subsection{Testing Module}
-        Testing module is realised as Java program, which runs in Docker container. It uses Spring framework and Maven.
+        \subsection{Estimating Module}
+        Estimating module is realised as Java program, which runs in Docker container. It uses Spring framework and Maven as well as a server application.
         
         Server application stores Dockerfile and jar of the program. On beginning of the estimation process, these files are moved to a temporary directory for solution. 
         
@@ -245,4 +242,10 @@ This application uses full-stack web framework as soon as it supports front-end 
     The set of entities \texttt{exercise content} has the same attributes as the entities, which are in a subset relationship with it. Single Table strategy was used for transformation. As a result, all the subsets are stored in the same table \texttt{exercise content}, and are distinguished by \texttt{exercise content type} attribute. Hibernate Inheritance Mapping was used to implement this relation as inheritance, a Single Table inheritance strategy was used. The same approach was used on transformation from entity-relationship model to relation model for table \texttt{solution content} and subsets of its entities.
     
     \input{content/uml/rm}
+    
+    
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ERROR HANDLING
+% To make the web application robust, errors handling should be done efficiently. Such an approach provides informative error messages and good user experience.
 
