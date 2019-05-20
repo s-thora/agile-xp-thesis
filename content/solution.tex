@@ -22,7 +22,7 @@ This application uses full-stack web framework as soon as it supports front-end 
         Except Angular modules, application uses two external modules, which provide editors. Functionality and use of them is described in the following sections.
         
             \subsubsection{Quill module}
-            The first one is based on Quill rich text editor. It was chosen because its component provides useful text formatting features, i.e. source code, quotations and headers. There is a view of a used quill editor at screenshot \ref{fig:quill}. This component is used to create and edit exercises description.
+            The first one is based on Quill rich text editor. It was chosen because its component provides useful text formatting features, e.g. source code, quotations and headers. There is a view of a used quill editor at screenshot \ref{fig:quill}. This component is used to create and edit exercises description.
             
             The code editor is configured to store user input as HTML-string. The editor uses Angular DomSamitizer to sanitise these values, so it also meets a requirement of security.
     
@@ -54,7 +54,7 @@ This application uses full-stack web framework as soon as it supports front-end 
         They are used to display pages or sections. Components are reusable, so some of them are used for different purposes, e.g. to create and edit a course, to manage a course and a lesson. Also they are used to display repetitive sections to avoid duplicates, e.g. show three same code editors with different content.
     
             \subsubsection{App module}
-            App module is not quite custom as soon as it is the root module and every Angular application must have it. This module defines features, used by the whole application, i.e. the main navigation toolbar. This module imports Courses module and Not Found Module, described in the following sections.
+            App module is not quite custom as soon as it is the root module and every Angular application must have it. This module defines features, used by the whole application, e.g. the main navigation toolbar. This module imports Courses module and Not Found Module, described in the following sections.
     
             \subsubsection{Courses module}
             This module contains components for viewing and management the courses. It contains four components. Two of them, Manage and Upsert, are shared with imported Lessons and Exercise modules. The rest two components deal with courses only.
@@ -198,7 +198,7 @@ This application uses full-stack web framework as soon as it supports front-end 
                     \label{fig:toolbar}
                 \end{figure}
                 
-                Solve Run component is responsible for running the estimation of the submitted result. First of all, when ``Run`` button is clicked, an output area appears and it contains ``Loading...`` message. Submitted source code, tests, files, solution itself and estimation should be saved to database, and they references, so they should be sent to the server in order. Sending requests to the server runs asynchronously with use async-await feature to make code more readable and call functions sequentially without making code hell of nested calls and conditions. The received estimation is shown to the user in the output area.
+                Solve Run component is responsible for running the estimation of the submitted result. Firstly, when ``Run`` button is clicked, an output area appears and it contains ``Loading...`` message. Submitted source code, tests, files, solution itself and estimation should be saved to database, and they references, so they should be sent to the server in order. Sending requests to the server runs asynchronously with use async-await feature to make code more readable and call functions sequentially without making code hell of nested calls and conditions. The received estimation is shown to the user in the output area.
     
             \subsubsection{Not found module}
             This module is imported by the App Module, and is used for redirection to it if the routing modules does not contain a requested path.
@@ -217,7 +217,7 @@ This application uses full-stack web framework as soon as it supports front-end 
         Then Dockerfile with archived Java program are copied to the temporary solution folder. The next step is running the container. Docker Client plugin, provided by Spotify, contains tools for working with Docker. A class was created to use them, it takes care of building an image, container creation, starting it, getting an estimation file content and destroying the container. The result is parsed from JSON format, and based on it estimation object it created.
         
         
-        \subsection{Estimating Module}
+        \subsection{Estimating module}
         Estimating module is realised as Java program, which runs in Docker container. It uses Spring framework and Maven as well as a server application.
         
         Server application stores Dockerfile and jar of the program. On beginning of the estimation process, these files are moved to a temporary directory for solution. 

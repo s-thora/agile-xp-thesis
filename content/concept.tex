@@ -16,7 +16,7 @@ This chapter is devoted to specification and concept of the resulting web applic
         \end{figure}
         
         \subsection{Courses structure}
-        The learning materials have a structure of courses, and each contains lessons with exercises. The course detail page contains a general information for every course element. Application provides tools for creating and editing course elements, they contain a title and description, and lessons and exercises may be reordered. Buttons ''Manage lessons'' ``and Manage exercises'' at course detail page lead to the pages, which provide this functionality. There are five types of exercises, they are specified in detail in section \ref{subsec:exercise-types} \nameref{subsec:exercise-types}. Exercises have different states, depending on progress. Expansion panel is used to show lessons. Each course can be expanded to show the containing exercises. There is an exercise type and progress shown for each.
+        The learning materials have a structure of courses, and each contains lessons with exercises. The course detail page contains a general information for every course element. Application provides tools for creating and editing course elements, they contain a title and description, and lessons and exercises may be reordered. Buttons ``Manage lessons'' ``and Manage exercises'' at course detail page lead to the pages, which provide this functionality. There are five types of exercises, they are specified in detail in section \ref{subsec:exercise-types} \nameref{subsec:exercise-types}. Exercises have different states, depending on progress. Expansion panel is used to show lessons. Each course can be expanded to show the containing exercises. There is an exercise type and progress shown for each.
         
         \subsection{Shown and hidden versions}
         The application provides creation two versions of source code, tests and files. Shown version is shown to the student, when he opens an exercise. Hidden version is not available to him, it is used to running the tests. In most of the exercises, both of the versions are used, but some of them contain only one.
@@ -96,7 +96,7 @@ This chapter is devoted to specification and concept of the resulting web applic
     This chapter is devoted to user interface concept.
     
         \subsection{Courses}
-        The start page provides a list of the created courses and general information on them. With selecting one of the listed courses, the user may enter it. Also the user may manage the courses, i.e. create, edit or delete them, with the use of the button. This page leads to all of the application pages, and they contain ``Back`` button for easier navigation.
+        The start page provides a list of the created courses and general information on them. With selecting one of the listed courses, the user may enter it. Also the user may manage the courses, e.g. create, edit or delete them, with the use of the button. This page leads to all of the application pages, and they contain ``Back'' button for easier navigation.
     
         When a course is entered, a new page contains an information about it. There is an expansion panel below with lessons and exercises they include. Every lesson and exercise may managed as well. Management includes editing, deleting, reordering and creation. The following sections are devoted to a detailed description of user interface for exercises creation, editing and solving.
     
@@ -109,7 +109,7 @@ This chapter is devoted to specification and concept of the resulting web applic
         
         The first type \textit{Theory} contains only description of the exercise. Exercise type \textit{Interactive Exercise} has editors for source code and tests, and exercise type \textit{Interactive Exercise with Files} has one more editor for text files.
         
-        Application provides tool for convenient creation of two versions of source code, tests and text files. On exercise creation or update, there is an editor for a hidden version, and there is a select component below. The component contains two options for the shown version. The first option, ``the same``, is used when an exercise author wants the shown version to be the same a hidden. And the second option, ``custom``, is used to create or edit a different shown version, and an new editor element appears. Some of the exercise types requires only a hidden or shown version of source code or test, so there is no select component.
+        Application provides tool for convenient creation of two versions of source code, tests and text files. On exercise creation or update, there is an editor for a hidden version, and there is a select component below. The component contains two options for the shown version. The first option, ``the same'', is used when an exercise author wants the shown version to be the same a hidden. And the second option, ``custom'', is used to create or edit a different shown version, and an new editor element appears. Some of the exercise types requires only a hidden or shown version of source code or test, so there is no select component.
         
         The submit button is enabled as soon as the form input is valid. On submit, there appears a notification telling if the data were saved successfully. When cheating new exercise, there appears suggestion to create another one.
         
@@ -121,14 +121,14 @@ This chapter is devoted to specification and concept of the resulting web applic
         Every editor component is extended with version control component, as it required at the concept section \ref{subsec:version-control} \nameref{subsec:version-control}. It enables resetting the editor content and loading content from a submitted version.
         
         \subsection{Run output}
-        On solving exercise of any type, except \textit{Thesis}, there is available a ``Run`` button for estimation a current result. When an exercise is submitted for the first time, an output area appears. During the estimation process, it contains ``Loading..` message. When feedback is ready, it is printed out within the output. Feedback contains compilation and testing result for both public and private versions, and represented as percentage solving progress.
+        On solving exercise of any type, except \textit{Thesis}, there is available a ``Run'' button for estimation a current result. When an exercise is submitted for the first time, an output area appears. During the estimation process, it contains ``Loading...'' message. When feedback is ready, it is printed out within the output. Feedback contains compilation and testing result for both public and private versions, and represented as percentage solving progress.
         
         Estimation runs two times for exercise types \textit{Interactive Exercise} and \textit{Interactive Exercise with Files}. First time for public version (running student's tests on his sources) and second time for private version (running teacher's tests on student's sources). The progress is represented as percentage and means how much tests were passed out of their total number.
         
         Testing result for exercise types \textit{Black Box} and \textit{Black Box with Files} contains only number of revealed mistakes and total number of them. The progress is represented as percentage, corresponding to the found mistakes number.
         
         \subsection{Exercise Toolbar}
-        The pages for solving the exercises contain two equal toolbars, one on the top and second on the bottom of the page. They contain the mentioned ``Back`` button, navigation within the lesson exercises, and there is a flag representing the progress on the solving current exercise. Toolbar view changes dynamically on an exercise change.
+        The pages for solving the exercises contain two equal toolbars, one on the top and second on the bottom of the page. They contain the mentioned ``Back'' button, navigation within the lesson exercises, and there is a flag representing the progress on the solving current exercise. Toolbar view changes dynamically on an exercise change.
     
     
     \section{Data structure}
@@ -155,7 +155,7 @@ This chapter is devoted to specification and concept of the resulting web applic
     \label{fig:use-case}
     \end{figure}
 
-    \section{Technical Requirements}
+    \section{Technical requirements}
     \label{sec:tech-requirements}
     This section is devoted to the requirements for the resulting web application and their purpose.
         

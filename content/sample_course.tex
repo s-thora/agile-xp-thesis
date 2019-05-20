@@ -1,6 +1,5 @@
 \chapter[Sample Course]{Sample Course}
 \label{ch:sample_course}
-
 In order to present the functionality and usage of web application, a sample course was created. Its exercises include all the exercises types and agile programming methods. The following section will lead through the content of the course.
 
     \section{Sample course overview}
@@ -36,32 +35,24 @@ In order to present the functionality and usage of web application, a sample cou
     \subsection{Lesson 2: Adding new features to the legacy program}
     The second lesson is devoted to the most often kind of work with legacy code, which is adding a new feature. Adding new functionality may be as risky as fixing the mistakes, so proper testing is important too. The aim of this lesson is to show how unit testing can be helpful for making sure, that program remains functional. Also this lesson would introduce of safe and efficient methods of changing legacy code.
     
-        \subsubsection{Exercise 1: Board of Any Size}
-        % sprout -> modify size
-        % - sprout function setSize()
-        % - read size from config
-        % - print board properly (10+)
-        
         \subsubsection{Exercise 2: Show Hints}
-        % sprout -> print hidden
-        % sprout function printHints()
-        
+        This exercise is aimed to acquaint with one of the techniques of safe legacy code modifying. Student should add a new feature of showing hints, and a new code should be isolated form the old one. Sprout technique should be used, so old code would not be modified, and it would be possible to test a new feature.
     
     \subsection{Lesson 3: Refactoring the legacy program}
-    The last lesson is devoted to the most efficient way to tidy code and make it easier to aim three factors of code quality and cleanliness: readability, maintainability and extensibility. Refactoring should be done in the end and no other code changes should be done at the same time. Because of this, this iteration of programming is done within the last lesson of the course. Each of the following exercises is devoted to one of the techniques of refactoring and leads step by step through them. These techniques will be practices on the legacy code from previous lessons, as soon it is a good example of program with lack of refactoring, and it becomes a good proof of necessity of it. Exercise titles refer to related chapters of the book \textit{`Clean Code: A Handbook of Agile Software Craftsmanship`} by Robert C. Martin. Also exercises contain citations from it, which describe the reason and idea behind the used techniques in the best way.
+    The last lesson is devoted to the most efficient way to tidy code and make it easier to aim three factors of code quality and cleanliness: readability, maintainability and extensibility. Refactoring should be done in the end and no other code changes should be done at the same time. Because of this, this iteration of programming is done within the last lesson of the course. Each of the following exercises is devoted to one of the techniques of refactoring and leads step by step through them. These techniques will be practices on the legacy code from previous lessons, as soon it is a good example of program with lack of refactoring, and it becomes a good proof of necessity of it. Exercise titles refer to related chapters of the book \textit{``Clean Code: A Handbook of Agile Software Craftsmanship''} by Robert C. Martin. Also exercises contain citations from it, which describe the reason and idea behind the used techniques in the best way.
     
     \subsubsection{Exercise 1: Constants versus Enums}
     This step of refactoring is aimed to make the code more readable. Original legacy code uses integers to represent cells to tell if a black, white or no piece is placed on it. The task is to replace these repetitive numbers with constant variables. In this case it is more reasonable to prefer \textit{enum} with name \textit{Player} rather than \textit{constant}, as soon as its meaning cannon be lost, because they belong to an enumeration that is named \cite[Constants versus Enums]{clean_code}.
     
     \subsubsection{Exercise 2: No Duplication}
-    The next step of refactoring is described as `\textit{the primary enemy of a well-designed system}` by Robert C. Martin, and he explains why: ``\textit{It represents additional work, additional risk, and additional unnecessary complexity}\cite[No Duplication]{clean_code}.``
+    The next step of refactoring is described as `\textit{the primary enemy of a well-designed system}' by Robert C. Martin, and he explains why: ``\textit{It represents additional work, additional risk, and additional unnecessary complexity}\cite[No Duplication]{clean_code}.''
     
     Source code from the exercise contains repetitive code, and the task is to eliminate such a duplicitous with extracting new functions and use them. The most noticeable advantage of this change is that instead making changes in every occurrence of such a code, it is enough to change it once in one place.
     
     \subsubsection{Exercise 3: Do One Thing}
     The next exercise introduces an important principle of programming, which is applied to programming entities on many levels, e.g. lines of code, functions, classes, and even refactoring itself. The legacy code contains several cases of violating this principle\cite[Do One Thing]{clean_code}.
     
-    The aim of the exercise is to extract new functions from the others, which do more then `one thing`. As a result, work with code becomes more efficient. It becomes possible to test application on more levels, to use methods of changing legacy code is needed, and to understand what function does at one glance.
+    The aim of the exercise is to extract new functions from the others, which do more then `one thing'. As a result, work with code becomes more efficient. It becomes possible to test application on more levels, to use methods of changing legacy code is needed, and to understand what function does at one glance.
     
     \subsubsection{Exercise 4: One Level of Abstraction per Function}
     When the core steps of refactoring are completed, this exercise introduces often neglected step of refactoring, which improves code readability significantly.
