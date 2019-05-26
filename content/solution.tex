@@ -163,9 +163,7 @@ This application uses full-stack web framework as soon as it supports front-end 
                 
                 When solving an exercise, its view is determined by its type. Every exercise type has view and functionality according to the concept, described in a section \ref{subsec:exercise-types} \nameref{subsec:exercise-types}. Exercise Solve component determines the number, content of the editors and a nested form, to which an editor is bounded to.
                 
-                Solve Editor component consists of an editor, which uses code editor component from Monaco module, and a version control section. Version control enables resetting the editor content and loading content from a submitted version. When an exercise is chosen, a dialog appears. It views eight most recent submitted solutions. User may require getting more from the server with ``Load more button``, and use paginator to display them. A typical code editor is illustrated on screenshot \ref{fig:editor-solve}.
-                
-                + image for version control
+                Solve Editor component consists of an editor, which uses code editor component from Monaco module, and a version control section. A typical code editor is illustrated on screenshot \ref{fig:editor-solve}. Version control enables resetting the editor content and loading content from a submitted version. When an exercise is chosen, a dialog appears. It views eight most recent submitted solutions. User may require getting more from the server with ``Load more button``, and use paginator to display them. Dialog for loading a solution from version control is illustrated on screenshot \ref{fig:version-control}. Expansion panel was used; when a solution is chosen, preview of a submitted code is expanded.
                 
                 \begin{figure}[h]
                     \centerline{
@@ -174,6 +172,15 @@ This application uses full-stack web framework as soon as it supports front-end 
                         ]{images/editor-solve.png}}
                     \caption{Editor element}
                     \label{fig:editor-solve}
+                \end{figure}
+                
+                \begin{figure}[h]
+                    \centerline{
+                        \includegraphics[
+                        width=0.9\textwidth, width=\linewidth, frame
+                        ]{images/version-control.png}}
+                    \caption{Version control}
+                    \label{fig:version-control}
                 \end{figure}
                 
                 Every exercise contains a Intro component for displaying a description of the exercise. The description content was created with use of rich text editor component of Qill module, and its content is formatted. There is an example at screenshot of the exercise description \ref{fig:description}.
