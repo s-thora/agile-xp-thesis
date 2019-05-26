@@ -2,7 +2,7 @@
 \label{ch:solution}
 This chapter is devoted to the implementation of the web application, which is the result of the bachelor thesis. It was realised according to the concept introduced in the previous chapter \ref{ch:concept} \nameref{ch:concept} to meet the stated requirements.
 
-This application uses full-stack web framework as soon as it supports front-end interface, back-end services and databases development. The application uses client-server model, where front-end corresponds to the client side, and front-end is considered as server side. The following sections describe implementation of every technologies stack component.
+This application uses full-stack web framework as soon as it supports front-end interface, back-end services and databases development. The application uses client-server model, where front-end corresponds to the client side, and back-end is considered as server side. The following sections describe implementation of every technologies stack component.
 
     \section{Front-end}
     This section is devoted to the implementation of application, which runs on client side and provides interaction with him.
@@ -223,7 +223,7 @@ This application uses full-stack web framework as soon as it supports front-end 
         Server application stores Dockerfile and jar of the program. On beginning of the estimation process, these files are moved to a temporary directory for solution. 
         
         Instead of executing commands from the server application or defining them in Dockerfile, the estimator program runs in the Docker container. It brings such a benefit as modularity, because it becomes easier to add more supported for estimation programming languages. 
-        for writing the  the server application may use this or another such a module, depending on the program. Also it brings an opportunity to define the output of compilation, testing, error messages.
+        for writing the server application may use this or another such a module, depending on the program. Also it brings an opportunity to define the output of compilation, testing, error messages.
         
         The estimator program contains two classes for estimating a solution. The first class is responsible for exercise type \textit{Interactive exercise} and \textit{Interactive exercise with Files}, and the second handles \textit{Black Box} with \textit{Black Box with Files}. The both classes extend abstract class Estimator and implement estimation function, which starts the process.
         
