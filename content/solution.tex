@@ -51,7 +51,7 @@ This application uses full-stack web framework as soon as it supports front-end 
         \subsection{Custom modules}
         Angular provides tools for making program modular. There are three modules in the application: courses, lessons and exercises. They contain components, routing modules, service providers. Components of these modules present data and define the view together with HTML templates. Routing modules enable navigation from one view to the next as users perform application tasks. The services are used for encapsulation of data access. The service providers handle sending requests to the server and retrieving the responses with use of HttpClient \cite[Architecture]{angular_getting_started}. The modules, components, routes and services were generated with use of Angular CLI, a command line interface.
     
-        They are used to display pages or sections. Components are reusable, so some of them are used for different purposes, e.g. to create and edit a course, to manage a course and a lesson. Also they are used to display repetitive sections to avoid duplicates, e.g. show three same code editors with different content.
+        The created components are used to display pages or sections. They are reusable, so some of them are used for different purposes, e.g. to create and edit a course, to manage a course and a lesson. Also they are used to display repetitive sections to avoid duplicates, e.g. show three same editor elements with different content.
     
             \subsubsection{App module}
             App module is not quite custom as soon as it is the root module and every Angular application must have it. This module defines features, used by the whole application, e.g. the main navigation toolbar. This module imports Courses module and Not Found Module, described in the following sections.
@@ -122,15 +122,9 @@ This application uses full-stack web framework as soon as it supports front-end 
         
             \subsubsection{Exercises module}
             Exercises module is the most complex. It contains several models and services, and various components for one or many purposes.
-        
-                \paragraph{Exercise Upsert component}
-                Exercise creating and editing is implemented with the same component, which contains various nested components. Angular Reactive Forms were used to create a dynamic form to interact with the user and store his input.  Content of fields, text and code editors from the nested components are bound to the form control and is processed on submit. This component also uses abstract component, inherited by creating and editing component.
-                
-                Non-dynamic part contains fields for exercise title, description and exercise type selector. Angular Form Field component was used for title, Quill rich text editor component was used for filling the description, and Angular Select was used for selecting an exercise type. This part is implemented with Create Intro component.
-                
-                When an exercise type is chosen, the form changes and the corresponding editors appear. The same component was used to place multiple editors with the same structure. The used form enables changing exercise type without losing data, and they would be available in the appeared editors.
-                
-                Each editor is implemented with Editor component. This uses tab view to represent several files. Content of any file may be manipulated with use of Monaco code editor. Angular Tab Module was used to create tabs, and buttons for renaming and deletion were added to them. The last tab contains button for adding new file. The default file name is ``filename.java``, and it may be changed in dialogue window, shown on screenshot \ref{fig:dialog}. The .java extension is added to a new file name from the input. Dialog component implemented the dialog with use of Angular Dialog module.
+            
+                \paragraph{Editor component}
+                Exercise module has Exercise Upsert and Exercise Solve components, and each of them has editors. Each of them is implemented with Editor component. It uses tab view to represent several files. Content of any file may be manipulated with use of Monaco code editor. Angular Tab Module was used to create tabs, and buttons for renaming and deletion were added to them. The last tab contains button for adding new file. The default file name is ``filename.java'', and it may be changed in dialogue window, shown on screenshot \ref{fig:dialog}. The .java extension is added to a new file name from the input. Dialog component implemented the dialog with use of Angular Dialog module.
                 
                 \begin{figure}[h]
                     \centerline{
@@ -140,8 +134,15 @@ This application uses full-stack web framework as soon as it supports front-end 
                     \caption{Filename change dialog}
                     \label{fig:dialog}
                 \end{figure}
+            
+                \paragraph{Exercise Upsert component}
+                Exercise creating and editing is implemented with the same component, which contains various nested components. Angular Reactive Forms were used to create a dynamic form to interact with the user and store his input.  Content of fields, text and code editors from the nested components are bound to the form control and is processed on submit. This component also uses abstract component, inherited by creating and editing component.
                 
-                View of the whole component is shown on screenshot \ref{fig:editor-create}.
+                Non-dynamic part contains fields for exercise title, description and exercise type selector. Angular Form Field component was used for title, Quill rich text editor component was used for filling the description, and Angular Select was used for selecting an exercise type. This part is implemented with Create Intro component.
+                
+                When an exercise type is chosen, the form changes and the corresponding editors appear. The same component was used to place multiple editors with the same structure. The used form enables changing exercise type without losing data, and they would be available in the appeared editors.
+                
+                Each editor is implemented with Editor component. View of the whole component is shown on screenshot \ref{fig:editor-create}.
                 
                 \begin{figure}[h]
                     \centerline{
@@ -152,7 +153,7 @@ This application uses full-stack web framework as soon as it supports front-end 
                     \label{fig:editor-create}
                 \end{figure}
                 
-                The dynamics of the form was used to fulfil a required feature of convenient creation of two versions of source code, tests and text files. Upsert Editors component implements this feature. On exercise creation or update, there is an editor for a hidden version, and there is a select component below. The component contains two options for the shown version. The first option, ``the same``, is used when an exercise author wants the shown version to be the same a hidden. As a result, the content of the editor would be saved as both hidden and shown version. And the second option, ``custom``, is used to create or edit a different shown version, and an new editor element appears. Some of the exercise types require only a hidden or shown version of source code or test, so there is no select component.
+                Dynamics of the form was used to fulfil a required feature of convenient creation of two versions of source code, tests and text files. Upsert Editors component implements this feature. On exercise creation or update, there is an editor for a hidden version, and there is a select component below. The component contains two options for the shown version. The first option, ``the same'', is used when an exercise author wants the shown version to be the same a hidden. As a result, the content of the editor would be saved as both hidden and shown version. And the second option, ``custom'', is used to create or edit a different shown version, and an new editor element appears. Some of the exercise types require only a hidden or shown version of source code or test, so there is no select component.
                 
                 Create Submit component displays a submit button, which is enabled as soon as the form input is valid. On submit, there would appear a notification telling if the data were saved successfully. When cheating new exercise, there would be an suggestion to create another one.
                 
@@ -163,7 +164,7 @@ This application uses full-stack web framework as soon as it supports front-end 
                 
                 When solving an exercise, its view is determined by its type. Every exercise type has view and functionality according to the concept, described in a section \ref{subsec:exercise-types} \nameref{subsec:exercise-types}. Exercise Solve component determines the number, content of the editors and a nested form, to which an editor is bounded to.
                 
-                Solve Editor component consists of an editor, which uses code editor component from Monaco module, and a version control section. A typical code editor is illustrated on screenshot \ref{fig:editor-solve}. Version control enables resetting the editor content and loading content from a submitted version. When an exercise is chosen, a dialog appears. It views eight most recent submitted solutions. User may require getting more from the server with ``Load more button``, and use paginator to display them. Dialog for loading a solution from version control is illustrated on screenshot \ref{fig:version-control}. Expansion panel was used; when a solution is chosen, preview of a submitted code is expanded.
+                Solve Editor component consists of an editor, which is implemented with code Editor component, and a version control section. A typical code editor is illustrated on screenshot \ref{fig:editor-solve}. Editor component uses Monaco module, it is possible to add, rename and remove files. Version control enables resetting the editor content and loading content from a submitted version. When an exercise is chosen, a dialog appears. It views eight most recent submitted solutions. User may require getting more from the server with ``Load more button'', and use paginator to display them. Dialog for loading a solution from version control is illustrated on screenshot \ref{fig:version-control}. Expansion panel was used; when a solution is chosen, preview of a submitted code is expanded.
                 
                 \begin{figure}[h]
                     \centerline{
@@ -205,7 +206,7 @@ This application uses full-stack web framework as soon as it supports front-end 
                     \label{fig:toolbar}
                 \end{figure}
                 
-                Solve Run component is responsible for running the estimation of the submitted result. Firstly, when ``Run`` button is clicked, an output area appears and it contains ``Loading...`` message. Submitted source code, tests, files, solution itself and estimation should be saved to database, and they references, so they should be sent to the server in order. Sending requests to the server runs asynchronously with use async-await feature to make code more readable and call functions sequentially without making code hell of nested calls and conditions. The received estimation is shown to the user in the output area.
+                Solve Run component is responsible for running the estimation of the submitted result. Firstly, when ``Run'' button is clicked, an output area appears and it contains ``Loading...'' message. Submitted source code, tests, files, solution itself and estimation should be saved to database, and they references, so they should be sent to the server in order. Sending requests to the server runs asynchronously with use async-await feature to make code more readable and call functions sequentially without making code hell of nested calls and conditions. The received estimation is shown to the user in the output area.
     
             \subsubsection{Not found module}
             This module is imported by the App Module, and is used for redirection to it if the routing modules does not contain a requested path.
@@ -225,7 +226,7 @@ This application uses full-stack web framework as soon as it supports front-end 
         
         
         \subsection{Estimating module}
-        Estimating module is realised as Java program, which runs in Docker container. It uses Spring framework and Maven as well as a server application.
+        Estimating module is realised as Java program, which runs in Docker container. It uses Maven as well as a server application.
         
         Server application stores Dockerfile and jar of the program. On beginning of the estimation process, these files are moved to a temporary directory for solution. 
         
